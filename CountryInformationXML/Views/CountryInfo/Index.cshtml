@@ -1,0 +1,43 @@
+﻿@model CountryInformationXML.Models.CountryInfoRequest
+
+@{
+    ViewBag.Title = "Full Country Info Finder";
+}
+
+<h2>Search for a Country's' Information</h2>
+
+@using (Html.BeginForm("Index", "CountryInfo", FormMethod.Post))
+{
+    <div class="form-group">
+        <label for="CountryIsoCode">Country ISO Code:</label>
+        @Html.TextBoxFor(model => model.CountryIsoCode, new { @class = "form-control" })
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Submit</button>
+}
+<hr />
+@if (!string.IsNullOrEmpty(Model.XmlResult))
+{
+    <h3>Country Information</h3>
+    <p><strong>Country ISO Code:</strong> @Model.CountryIsoCode</p>
+    <p><strong>Country Name:</strong> @Model.CountryName</p>
+    <p><strong>Capital City:</strong> @Model.CapitalCity</p>
+    <p><strong>Phone Code:</strong> @Model.PhoneCode</p>
+    <p><strong>Continent:</strong> @Model.Continent</p>
+    <p><strong>Currency:</strong> @Model.Currency</p>
+    <p><strong>Country Flag:</strong> @Model.CountryFlag</p>
+    <p><strong>Languages:</strong></p>
+    <ul style="list-style-type: none;">
+        @foreach (var language in Model.Languages)
+        {
+            <li>
+                <p><strong>Language Iso Code:</strong> @language.IsoCode</p>
+                <p><strong>Language Name:</strong> @language.Name</p>
+            </li>
+        }
+    </ul>
+    <hr />
+    <h4>Full XML Result</h4>
+    <pre>@Model.XmlResult</pre>
+}
+
